@@ -76,7 +76,7 @@ local lspconfig = require("lspconfig")
 lspconfig.astro.setup({})
 
 -- python run
-vim.keymap.set('n', '<leader>p', ':term python3 %<CR>', { noremap = true, silent = true} )
+vim.keymap.set('n', '<leader><F8>', ':term python3 %<CR>', { noremap = true, silent = true} )
 
 -- rest.nvim config
 
@@ -100,9 +100,17 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "json",
     callback = function(ev)
         vim.bo[ev.buf].formatprg = "jq"
-        print("It's a json file")
     end,
 })
+
+-- Set conceallevel=1 for markdown files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+        vim.opt.conceallevel = 2
+    end
+})
+
 
 vim.keymap.set("n", "]g", vim.diagnostic.goto_next)
 vim.keymap.set("n", "[g", vim.diagnostic.goto_prev)

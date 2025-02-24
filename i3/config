@@ -216,10 +216,8 @@ exec --no-startup-id xautolock -corners -000 -time 10 -locker 'i3lock -c 000000'
 bindsym Shift+$mod+Pause exec i3lock -c 000000 && systemctl suspend
 bindsym $mod+Pause exec i3lock -c 000000 
 
+# sudo timedatectl set-ntp true
+# keyboard layout
 exec_always --no-startup-id setxkbmap -option "caps:escape"
 
-# sudo timedatectl set-ntp true
-
-# keyboard layout
-
-exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl
+exec_always --no-startup-id setxkbmap -variant altgr-intl
