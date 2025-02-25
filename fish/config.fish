@@ -46,10 +46,6 @@ function gga
     git add $argv
 end
 
-function cat
-    bat $argv
-end
-
 
 export EDITOR="nvim"
 export VISUAL="nvim"
