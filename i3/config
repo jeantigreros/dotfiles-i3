@@ -28,7 +28,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # keyboard layout
 exec_always --no-startup-id setxkbmap -option "caps:escape"
 exec_always --no-startup-id setxkbmap -variant altgr-intl
-exec xrandr --output HDMI2 --auto --left-of eDP1
+exec xrandr --output HDMI2 1920x1080 --left-of eDP1
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
