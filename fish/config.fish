@@ -49,7 +49,7 @@ export VISUAL="nvim"
 # binds
 
 #bind \cf forward-char
-bind \el clear-screen
+#bind \el clear-screen
 
 # pnpm
 set -gx PNPM_HOME "/home/j/.local/share/pnpm"
