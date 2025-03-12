@@ -106,26 +106,31 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set("n", "]g", vim.diagnostic.goto_next)
 vim.keymap.set("n", "[g", vim.diagnostic.goto_prev)
 
--- ranger config
+-- -- ranger config
+--
+-- local ranger_nvim = require("ranger-nvim")
+-- ranger_nvim.setup({
+--   enable_cmds = false,
+--   replace_netrw = true,
+--   keybinds = {
+--     ["ov"] = ranger_nvim.OPEN_MODE.vsplit,
+--     ["oh"] = ranger_nvim.OPEN_MODE.split,
+--     ["ot"] = ranger_nvim.OPEN_MODE.tabedit,
+--     ["or"] = ranger_nvim.OPEN_MODE.rifle,
+--   },
+--   ui = {
+--     border = "single",
+--     height = 0.9,
+--     width = 1,
+--     x = 0,
+--     y = 0,
+--   }
+-- })
+--
 
-local ranger_nvim = require("ranger-nvim")
-ranger_nvim.setup({
-  enable_cmds = false,
-  replace_netrw = true,
-  keybinds = {
-    ["ov"] = ranger_nvim.OPEN_MODE.vsplit,
-    ["oh"] = ranger_nvim.OPEN_MODE.split,
-    ["ot"] = ranger_nvim.OPEN_MODE.tabedit,
-    ["or"] = ranger_nvim.OPEN_MODE.rifle,
-  },
-  ui = {
-    border = "single",
-    height = 0.9,
-    width = 1,
-    x = 0,
-    y = 0,
-  }
-})
+-- dired config
+
+vim.keymap.set('n', '<leader>e', '<cmd>Dired<CR>', {desc = "Open dired mode"})
 
 -- terminal escape
 
