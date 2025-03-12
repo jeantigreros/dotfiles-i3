@@ -1,0 +1,2 @@
+bind c script sh -c 'echo "$MU_SELECTION" | wl-copy'
+
