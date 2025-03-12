@@ -103,15 +103,6 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- Set conceallevel=1 for markdown files
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "markdown",
-    callback = function()
-        vim.opt.conceallevel = 2
-    end
-})
-
-
 vim.keymap.set("n", "]g", vim.diagnostic.goto_next)
 vim.keymap.set("n", "[g", vim.diagnostic.goto_prev)
 
