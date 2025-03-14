@@ -41,8 +41,11 @@ function fish_user_key_bindings
     bind -M insert \cf forward-char  # Bind Ctrl + F in insert mode
 end
 
+# donwload music - needs to have yt-dlp installed 
 
-
+function dmusic 
+    yt-dlp $argv -o "%(album)s/%(title)s.%(ext)s" --add-metadata --embed-thumbnail -x --audio-format mp3
+  end 
 export EDITOR="nvim"
 export VISUAL="nvim"
 
