@@ -33,6 +33,9 @@ bindsym XF86AudioMicMute exec "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
 # Floating window modifier
 floating_modifier $mod
 
+# toggle tiling / floating
+bindsym $mod+space floating toggle
+
 # Terminal
 bindsym $mod+Return exec kitty
 

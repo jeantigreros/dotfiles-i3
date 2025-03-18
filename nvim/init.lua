@@ -164,3 +164,7 @@ require("oil").setup({
     ["g\\"] = { "actions.toggle_trash", mode = "n" },
   },
 })
+
+-- buffer next and previous keybinding
+vim.keymap.set('n', 'gn', '<cmd>bnext<cr>', { silent = true, noremap = true }, {desc = "Open previous buffer"})
+vim.keymap.set('n', 'gp', '<cmd>bprevious<cr>', { silent = true, noremap = true }, {desc = "Open previous buffer"})
