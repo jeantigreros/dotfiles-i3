@@ -43,11 +43,23 @@ end
 
 # donwload music - needs to have yt-dlp installed 
 
-function dmusic 
-    yt-dlp $argv -o "%(album)s/%(title)s.%(ext)s" --add-metadata --embed-thumbnail -x --audio-format mp3
+function dmusica
+    set link (~/venv/bin/python3 ~/dev/python/get-albums/main.py $argv)
+    yt-dlp -o "%(album)s/%(title)s.%(ext)s" $link -x --audio-quality 0 -f ba --add-metadata --embed-thumbnail 
   end 
+
+function dmusicl
+    yt-dlp -o "%(album)s/%(title)s.%(ext)s" $argv -x --audio-quality 0 -f ba --add-metadata --embed-thumbnail 
+  end 
+
 export EDITOR="nvim"
 export VISUAL="nvim"
+
+# trash
+
+function tm
+  trash $argv
+end
 
 # binds
 
