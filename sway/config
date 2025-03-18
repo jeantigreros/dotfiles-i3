@@ -1,8 +1,12 @@
 # Sway configuration file
 # Place this at ~/.config/sway/config
-
+xwayland enable
 set $mod Mod4
 set $alt Mod1
+
+# output for monitors
+output eDP-1 pos 1920 0 res 1366x768
+output HDMI-A-2 pos 0 0 res 1920x1080 
 
 # Font for window titles
 font pango:monospace 8
@@ -13,12 +17,6 @@ input * {
     xkb_layout us
     xkb_variant altgr-intl
 }
-
-# Display configuration
-output HDMI-2 mode 1920x1080 position 0 0
-
-# Network manager applet
-exec nm-applet &
 
 # Volume control
 bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume @DEFAULT_SINK@ +10%"
@@ -40,14 +38,14 @@ bindsym $mod+Control+Shift+Tab workspace prev
 bindsym $mod+q kill
 
 # Application launcher (Rofi)
-bindsym $mod+d exec rofi -show drun -lines 20 -eh 1.3 -opacity "85" -bw 0 -font "Mononoki Nerd Font Mono 14"
+bindsym $mod+d exec killall rofi || rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -font 'mononoki 12'
 
 # Focus movement
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-bindsym $alt+Tab focus right
+bindsym $alt+Tab focus left
 
 # Move windows
 bindsym $mod+Shift+h move left
@@ -66,9 +64,6 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
 
 # Workspaces
 set $ws1 "1"
@@ -110,7 +105,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+q exec swaymsg exit
 
 # Screenshots
-bindsym Print exec "flameshot gui"
+bindsym Print exec "grimshot save area"
 
 # Disable window titlebars
 for_window [class="^.*"] border pixel 2
@@ -132,15 +127,23 @@ bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 
 # Start on specific workspace
-exec_always swaymsg 'workspace 1; exec firefox'
+exec_always swaymsg 'workspace 2; exec firefox'
 
 # Compositor
 exec_always mako &
 exec_always swayidle -w timeout 600 'swaylock -f -c 000000' &
 
 # Lock screen and suspend
-bindsym Shift+$mod+Pause exec swaylock -c 000000 && systemctl suspend
+bindsym Shift+$mod+Pause exec swaylock -c 000000 & systemctl suspend
 bindsym $mod+Pause exec swaylock -c 000000
 
 # Assign applications to workspaces
-assign [app_id="firefox"] $ws1
+assign [app_id="firefox"] $ws2
+
+bar {
+    position bottom 
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command i3status
+}
+for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
