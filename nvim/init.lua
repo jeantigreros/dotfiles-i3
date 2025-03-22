@@ -39,10 +39,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_set_keymap('i', '<C-l>', '<C-g>u<Esc>[s1z=`]a<C-g>u', { noremap = true, silent = true})
 
-
-
--- nvim-tree binds 
--- vim.api.nvim_set_keymap('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
@@ -106,32 +102,6 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set("n", "]g", vim.diagnostic.goto_next)
 vim.keymap.set("n", "[g", vim.diagnostic.goto_prev)
 
--- -- ranger config
---
--- local ranger_nvim = require("ranger-nvim")
--- ranger_nvim.setup({
---   enable_cmds = false,
---   replace_netrw = true,
---   keybinds = {
---     ["ov"] = ranger_nvim.OPEN_MODE.vsplit,
---     ["oh"] = ranger_nvim.OPEN_MODE.split,
---     ["ot"] = ranger_nvim.OPEN_MODE.tabedit,
---     ["or"] = ranger_nvim.OPEN_MODE.rifle,
---   },
---   ui = {
---     border = "single",
---     height = 0.9,
---     width = 1,
---     x = 0,
---     y = 0,
---   }
--- })
---
-
--- dired config
-
--- vim.keymap.set('n', '<leader>e', '<cmd>Dired<CR>', {desc = "Open dired mode"})
-
 -- terminal keybindings 
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, noremap = true })
@@ -145,26 +115,15 @@ require("oil").setup({
     "mtime",
   },
   delete_to_trash = true,
-  keymaps = {
-    ["g?"] = { "actions.show_help", mode = "n" },
-    ["<CR>"] = "actions.select",
-    ["<C-s>"] = { "actions.select", opts = { vertical = true } },
-    ["<C-h>"] = { "actions.select", opts = { horizontal = true } },
-    ["<C-t>"] = { "actions.select", opts = { tab = true } },
-    ["<C-p>"] = "actions.preview",
-    ["<C-c>"] = { "actions.close", mode = "n" },
-    ["<C-l>"] = "actions.refresh",
-    ["<C-H>"] = { "actions.parent", mode = "n" },
-    ["_"] = { "actions.open_cwd", mode = "n" },
-    ["`"] = { "actions.cd", mode = "n" },
-    ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
-    ["gs"] = { "actions.change_sort", mode = "n" },
-    ["gx"] = "actions.open_external",
-    ["g."] = { "actions.toggle_hidden", mode = "n" },
-    ["g\\"] = { "actions.toggle_trash", mode = "n" },
-  },
 })
 
 -- buffer next and previous keybinding
 vim.keymap.set('n', 'gn', '<cmd>bnext<cr>', { silent = true, noremap = true }, {desc = "Open previous buffer"})
 vim.keymap.set('n', 'gp', '<cmd>bprevious<cr>', { silent = true, noremap = true }, {desc = "Open previous buffer"})
+
+-- c 
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "c",
+  command = "setlocal makeprg=cc\\ -o\\ %<\\ %<.c"
+})
