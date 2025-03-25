@@ -114,7 +114,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+q exec swaymsg exit
 
 # Screenshots
-bindsym Print exec "grimshot save area"
+# bindsym Print exec "grimshot save area"
 
 # Disable window titlebars
 for_window [class="^.*"] border pixel 2
@@ -149,4 +149,8 @@ bar {
     # The default just shows the current date and time.
     status_command i3status
 }
-for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
+ for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
+
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK

@@ -15,6 +15,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("j.plugins")
 
+require('mini.indentscope').setup(
+  {
+    symbol = "|"
+  }
+)
+
 vim.o.background = "dark" -- or "light" for light mode
 vim.cmd([[colorscheme gruvbox]])
 
@@ -127,3 +133,9 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "c",
   command = "setlocal makeprg=cc\\ -o\\ %<\\ %<.c"
 })
+
+-- go to declaration
+
+vim.keymap.set('n', "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", {desc = "Open declaration"}, { silent = true, noremap = true})
+
+vim.keymap.set('n', "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {desc = "Open definition"}, { silent = true, noremap = true})
