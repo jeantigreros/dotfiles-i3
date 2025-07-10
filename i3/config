@@ -26,6 +26,7 @@ exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escap
 exec --no-startup-id dex --autostart --environment i3
 
 bindsym $mod+Shift+f exec firefox
+bindsym $mod+t exec nautilus
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -37,6 +38,10 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
+exec --no-startup-id xrandr \
+  --output HDMI-A-1 --mode 1280x1024 --pos 0x0 --primary --rotate normal \
+  --output HDMI-A-0 --mode 1920x1080 --pos 1280x0 --rotate normal
+
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -207,5 +212,5 @@ bindsym Print exec "flameshot gui"
 for_window [class="^.*"] border pixel 2
 
 # Background
-exec_always feh --bg-scale /home/j/Pictures/wallpaper.png
+exec_always feh --bg-scale /home/j/Pictures/wallpaper2.jpeg
 
