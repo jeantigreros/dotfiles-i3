@@ -41,6 +41,15 @@ function fish_user_key_bindings
     bind -M insert \cf forward-char  # Bind Ctrl + F in insert mode
 end
 
+function openports
+    set -l port
+    if count $argv >/dev/null
+        set port $argv[1]
+    else
+        set port 3000
+    end
+    lsof -i "tcp:$port"
+end
 
 
 export EDITOR="nvim"
@@ -54,7 +63,7 @@ export VISUAL="nvim"
 # pnpm
 set -gx PNPM_HOME "/home/j/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
-    set -gx PATH "$PNPM_HOME" $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
 

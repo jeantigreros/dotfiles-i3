@@ -15,6 +15,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("j.plugins")
 
+require('mini.indentscope').setup(
+  {
+    symbol = "|"
+  }
+)
+
 vim.o.background = "dark" -- or "light" for light mode
 vim.cmd([[colorscheme gruvbox]])
 
@@ -39,10 +45,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_set_keymap('i', '<C-l>', '<C-g>u<Esc>[s1z=`]a<C-g>u', { noremap = true, silent = true})
 
-
-
--- nvim-tree binds 
--- vim.api.nvim_set_keymap('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
@@ -103,39 +105,37 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- Set conceallevel=1 for markdown files
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "markdown",
-    callback = function()
-        vim.opt.conceallevel = 2
-    end
-})
-
-
 vim.keymap.set("n", "]g", vim.diagnostic.goto_next)
 vim.keymap.set("n", "[g", vim.diagnostic.goto_prev)
 
--- ranger config
-
-local ranger_nvim = require("ranger-nvim")
-ranger_nvim.setup({
-  enable_cmds = false,
-  replace_netrw = true,
-  keybinds = {
-    ["ov"] = ranger_nvim.OPEN_MODE.vsplit,
-    ["oh"] = ranger_nvim.OPEN_MODE.split,
-    ["ot"] = ranger_nvim.OPEN_MODE.tabedit,
-    ["or"] = ranger_nvim.OPEN_MODE.rifle,
-  },
-  ui = {
-    border = "single",
-    height = 0.9,
-    width = 1,
-    x = 0,
-    y = 0,
-  }
-})
-
--- terminal escape
+-- terminal keybindings 
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, noremap = true })
+vim.keymap.set('n', 'T', '<cmd>term<CR>', {desc = "Open terminal"}, { silent = true, noremap = true})
+
+-- oil config
+require("oil").setup({
+  columns = {
+    "icon",
+    "size",
+    "mtime",
+  },
+  delete_to_trash = true,
+})
+
+-- buffer next and previous keybinding
+vim.keymap.set('n', 'gn', '<cmd>bnext<cr>', { silent = true, noremap = true }, {desc = "Open previous buffer"})
+vim.keymap.set('n', 'gp', '<cmd>bprevious<cr>', { silent = true, noremap = true }, {desc = "Open previous buffer"})
+
+-- c 
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "c",
+  command = "setlocal makeprg=cc\\ -o\\ %<\\ %<.c"
+})
+
+-- go to declaration
+
+vim.keymap.set('n', "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", {desc = "Open declaration"}, { silent = true, noremap = true})
+
+vim.keymap.set('n', "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {desc = "Open definition"}, { silent = true, noremap = true})
