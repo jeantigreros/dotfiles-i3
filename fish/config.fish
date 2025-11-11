@@ -4,6 +4,10 @@ end
 
 starship init fish | source
 
+function doom
+  ~/.config/emacs/bin/doom "$argv"
+end
+
 function ccs
     config status
 end
@@ -36,30 +40,28 @@ function gga
     git add $argv
 end
 
+function untar
+    tar xzvf $argv
+end
+
 function fish_user_key_bindings
     fish_vi_key_bindings  # Ensure Vi mode is enabled
     bind -M insert \cf forward-char  # Bind Ctrl + F in insert mode
 end
 
-# donwload music - needs to have yt-dlp installed 
+function openports
+    set -l port
+    if count $argv >/dev/null
+        set port $argv[1]
+    else
+        set port 3000
+    end
+    lsof -i "tcp:$port"
+end
 
-function dmusica
-    set link (~/venv/bin/python3 ~/dev/python/get-albums/main.py $argv)
-    yt-dlp -o "%(album)s/%(title)s.%(ext)s" $link -x --audio-quality 0 -f ba --add-metadata --embed-thumbnail 
-  end 
-
-function dmusicl
-    yt-dlp -o "%(album)s/%(title)s.%(ext)s" $argv -x --audio-quality 0 -f ba --add-metadata --embed-thumbnail 
-  end 
 
 export EDITOR="nvim"
 export VISUAL="nvim"
-
-# trash
-
-function tm
-  trash $argv
-end
 
 # binds
 
@@ -69,7 +71,7 @@ end
 # pnpm
 set -gx PNPM_HOME "/home/j/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
-    set -gx PATH "$PNPM_HOME" $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
 
@@ -80,3 +82,10 @@ set -g j_path "$HOME/dev"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 fish_user_key_bindings
+
+
+# testing
+
+export QT_QPA_PLATFORM=xcb
+
+export QT_QPA_PLATFORM=wayland
