@@ -209,8 +209,7 @@ bar {
 }
 
 # Screenshots
-# broken bc of wayland
-# exec --no-startup-id flameshot
+exec --no-startup-id flameshot
 bindsym Print exec "flameshot gui"
 
 # Disable window titlebars entirely
