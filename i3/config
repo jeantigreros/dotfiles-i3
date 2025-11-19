@@ -43,7 +43,7 @@ exec --no-startup-id nm-applet
 #   --output HDMI-A-1 --mode 1280x1024 --pos 0x0 --primary --rotate normal \
 #   --output HDMI-A-0 --mode 1920x1080 --pos 1280x0 --rotate normal
 
-exec --no-startup-id xrandr --output DP-1 --mode 1920x1080 --rate 180
+exec --no-startup-id xrandr --output DisplayPort-0 --mode 1920x1080 --rate 180
 
 
 # Use pactl to adjust volume in PulseAudio.
@@ -211,7 +211,7 @@ bar {
 # Screenshots
 # broken bc of wayland
 # exec --no-startup-id flameshot
-# bindsym Print exec "flameshot gui"
+bindsym Print exec "flameshot gui"
 
 # Disable window titlebars entirely
 for_window [class="^.*"] border pixel 2
