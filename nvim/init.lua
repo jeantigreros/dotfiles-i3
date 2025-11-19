@@ -22,7 +22,9 @@ require('mini.indentscope').setup(
 )
 
 vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme gruvbox]])
+vim.cmd("colorscheme default")
+vim.api.nvim_set_hl(0, "Normal", { bg = "#282828" })
+vim.api.nvim_set_hl(0, "OilDir", { fg = "#689d6a" })
 
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.number = true
@@ -50,19 +52,6 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true 
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 
--- nvim-ale config
- vim.cmd [[
-   let g:ale_linters = {
-       \ 'typescript': ['ts_ls'],
-       \ 'typescriptreact': ['ts_ls'],
-       \ }
-   let g:ale_fixers = {
-       \ 'typescript': ['prettier'],
-       \ 'typescriptreact': ['prettier'],
-       \ }
-   let g:ale_fix_on_save = 1
- ]]
-
 -- telescope binds
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
@@ -72,10 +61,6 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 -- save
 vim.keymap.set('n', '<C-s>', ":w<CR>", { noremap = true})
-
--- astro
-local lspconfig = require("lspconfig")
-lspconfig.astro.setup({})
 
 -- python run
 vim.keymap.set('n', '<leader><F8>', ':term python3 %<CR>', { noremap = true, silent = true} )

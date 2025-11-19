@@ -22,3 +22,5 @@ ln -srv i3status/ ~/.config/
 ln -srv kitty/ ~/.config/
 ln -srv nvim/ ~/.config/
 ln -srv rofi/ ~/.config/
+
+
