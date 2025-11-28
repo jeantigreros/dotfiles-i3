@@ -29,6 +29,9 @@ bindsym $mod+Shift+f exec firefox
 #broken bc of wayland
 # bindsym $mod+t exec dolphin 
 
+# exec dunst
+exec --no-startup-id dunst
+
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
@@ -130,6 +133,9 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
+
+# script menu
+bindsym $mod+Shift+d exec ~/dev/scripts/scripts-menu.sh
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
