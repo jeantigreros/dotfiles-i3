@@ -22,7 +22,7 @@ require('mini.indentscope').setup(
 )
 
 vim.o.background = "dark" -- or "light" for light mode
-vim.cmd("colorscheme default")
+vim.cmd("colorscheme lackluster-hack")
 vim.api.nvim_set_hl(0, "Normal", { bg = "#282828" })
 vim.api.nvim_set_hl(0, "OilDir", { fg = "#689d6a" })
 

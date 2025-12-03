@@ -70,8 +70,7 @@ bindsym $mod+space floating toggle
 bindsym $mod+Return exec st
 
 # lock
-bindsym Shift+$mod+Pause exec i3lock -c 000000 && systemctl suspend
-bindsym $mod+Pause exec i3lock -c 000000 
+bindsym Shift+$mod+Pause exec systemctl suspend
 
 # kill focused window
 bindsym $mod+q kill
