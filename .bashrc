@@ -1,7 +1,4 @@
-# .bashrc
-
-export TERM=st-256color
-
+[[ $- != *i* ]] && return
 # Source global definitions
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
@@ -26,7 +23,9 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-source ~/.fzf.bash
+if [[ -f ~/.fzf.bash ]]; then
+    source ~/.fzf.bash
+fi
 shopt -s cmdhist
 shopt -s histappend
 # Set history size
@@ -93,3 +92,11 @@ openports() {
 }
 
 set completion-query-items 0
+
+# pnpm
+export PNPM_HOME="/home/j/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
