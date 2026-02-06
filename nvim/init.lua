@@ -124,3 +124,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set('n', "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", {desc = "Open declaration"}, { silent = true, noremap = true})
 
 vim.keymap.set('n', "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {desc = "Open definition"}, { silent = true, noremap = true})
+
+-- bufferline
+vim.opt.termguicolors = true
+require("bufferline").setup{}
