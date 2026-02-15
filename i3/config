@@ -66,8 +66,7 @@ tiling_drag modifier titlebar
 bindsym $mod+space floating toggle
 
 # start a terminal
-# bindsym $mod+Return exec ghostty 
-bindsym $mod+Return exec konsole
+bindsym $mod+Return exec kitty 
 
 
 # lock
