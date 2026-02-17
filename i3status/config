@@ -18,7 +18,7 @@ order += "cpu_temperature 0"
 order += "cpu_usage"
 order += "volume master"
 order += "disk /"
-# order += "battery all"
+order += "battery all"
 order += "tztime local"
 
 cpu_usage {
@@ -40,16 +40,16 @@ ethernet _first_ {
 #battery all {
 #        format = "%status %percentage %remaining"
 #}
-# battery all {
-#         format = "%status %percentage %remaining"
-#         format_down = ""
-#         status_chr = "CHR"
-#         status_bat = "BAT"
-#         status_unk = "UNK"
-#         status_full = "FULL"
-#         path = "/sys/class/power_supply/BAT%d/uevent"
-#         low_threshold = 10
-# }
+battery all {
+        format = "%status %percentage %remaining"
+        format_down = ""
+        status_chr = "CHR"
+        status_bat = "BAT"
+        status_unk = "UNK"
+        status_full = "FULL"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
 
 volume master {
         format = "VOL: %volume"
@@ -61,17 +61,10 @@ tztime local {
         format = "%Y-%m-%d %I:%M:%S"
 }
 
-# load {
-#         format = "%1min"
-# }
-
 disk "/" {
         format = "%avail"
 }
-
 cpu_temperature 0 {
         format = "T: %degrees °C"
         path = "/sys/class/thermal/thermal_zone1/temp"
 }
-
-
