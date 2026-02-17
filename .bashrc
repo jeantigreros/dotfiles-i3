@@ -70,6 +70,10 @@ ggp() {
   git push -u
 }
 
+ggb() {
+  git branch
+}
+
 gga() {
   if [ $# -eq 0 ]; then
     echo "Usage: gga <files>"
