@@ -17,6 +17,7 @@ set $alt Mod1
 font pango:monospace 8
 
 exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
+exec_always --no-startup-id picom -b
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -67,7 +68,7 @@ bindsym $mod+space floating toggle
 
 # start a terminal
 # bindsym $mod+Return exec ghostty 
-bindsym $mod+Return exec konsole
+bindsym $mod+Return exec kitty
 
 
 # lock
