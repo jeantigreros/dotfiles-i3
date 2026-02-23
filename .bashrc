@@ -1,34 +1,25 @@
 [[ $- != *i* ]] && return
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+
+if [ -f /etc/bash.bashrc ]; then
+    . /etc/bash.bashrc
 fi
 
-# User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
 
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
-
-# User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
     for rc in ~/.bashrc.d/*; do
-        if [ -f "$rc" ]; then
-            . "$rc"
-        fi
+        [ -f "$rc" ] && . "$rc"
     done
 fi
 unset rc
 
-if [[ -f ~/.fzf.bash ]]; then
-    source ~/.fzf.bash
-fi
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 shopt -s cmdhist
 shopt -s histappend
-# Set history size
 HISTSIZE=5000
 HISTFILESIZE=10000
 HISTCONTROL=ignoredups:erasedups
@@ -40,67 +31,50 @@ set completion-ignore-case on
 set bell-style none
 
 [[ -s /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
-# sudo [dnf apt pacman -S] bash-completion
 
-RED="\[\033[0;31m\]"
-GREEN="\[\033[0;32m\]"
-BLUE="\[\033[0;34m\]"
-YELLOW="\[\033[0;33m\]"
-RESET="\[\033[0m\]"
+alias ls='ls --color=auto'
 
-export PS1="j@${BLUE}fedora${RESET}:\w${RESET}\$ "
+# Git prompt
+if [ -f /usr/share/bash-completion/completions/git ]; then
+    source /usr/share/bash-completion/completions/git
+fi
+export GIT_PS1_SHOWDIRTYSTATE=1
+
+# 256-color PS1
+USER_COLOR="\[\033[38;5;231m\]"   # white
+HOST_COLOR="\[\033[38;5;160m\]"   # red
+GIT_COLOR="\[\033[38;5;252m\]"    # idk
+RESET_COLOR="\[\033[0m\]"
+
+PS1="${USER_COLOR}\u${RESET_COLOR}@${HOST_COLOR}\h${RESET_COLOR}${USER_COLOR}\w${RESET_COLOR}\$(__git_ps1 \" ${GIT_COLOR}(%s)${RESET_COLOR}\")\$ "
 
 doom() {
-  ~/.config/emacs/bin/doom "$@"
+    ~/.config/emacs/bin/doom "$@"
 }
 
-ggs() {
-  git status
-}
-
+ggs() { git status; }
 ggm() {
-  if [ $# -eq 0 ]; then
-    echo "Usage: ggm <commit>"
-    return 1
-  fi
-  git commit -m "$*"
+    [ $# -eq 0 ] && { echo "Usage: ggm <commit>"; return 1; }
+    git commit -m "$*"
 }
-
-ggp() {
-  git push -u
-}
-
-ggb() {
-  git branch
-}
-
+ggp() { git push -u; }
+ggb() { git branch; }
 gga() {
-  if [ $# -eq 0 ]; then
-    echo "Usage: gga <files>"
-    return 1
-  fi
-  git add "$@"
+    [ $# -eq 0 ] && { echo "Usage: gga <files>"; return 1; }
+    git add "$@"
 }
 
 untar() {
-  if [ $# -eq 0 ];then
-    echo "Usage: untar <files.tar.gz>"
-    return 1
-  fi
-  tar -xvf "$1"
+    [ $# -eq 0 ] && { echo "Usage: untar <files.tar.gz>"; return 1; }
+    tar -xvf "$1"
 }
 
 openports() {
-  local port="${1:-3000}"
-  lsof -i "tcp:$port"
+    local port="${1:-3000}"
+    lsof -i "tcp:$port"
 }
 
 set completion-query-items 0
 
-# pnpm
-export PNPM_HOME="/home/j/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
+export PNPM_HOME="$HOME/.local/share/pnpm"
+[[ ":$PATH:" != *":$PNPM_HOME:"* ]] && export PATH="$PNPM_HOME:$PATH"
