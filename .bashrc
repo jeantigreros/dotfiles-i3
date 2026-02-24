@@ -46,7 +46,7 @@ HOST_COLOR="\[\033[38;5;160m\]"   # red
 GIT_COLOR="\[\033[38;5;252m\]"    # idk
 RESET_COLOR="\[\033[0m\]"
 
-PS1="${USER_COLOR}\u${RESET_COLOR}@${HOST_COLOR}\h${RESET_COLOR}${USER_COLOR}\w${RESET_COLOR}\$(__git_ps1 \" ${GIT_COLOR}(%s)${RESET_COLOR}\")\$ "
+PS1="${RESET_COLOR}\u${RESET_COLOR}@${HOST_COLOR}\h${RESET_COLOR}${RESET_COLOR}\w${RESET_COLOR}\$(__git_ps1 \" ${GIT_COLOR}(%s)${RESET_COLOR}\")\$ "
 
 doom() {
     ~/.config/emacs/bin/doom "$@"
