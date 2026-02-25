@@ -40,13 +40,13 @@ set bell-style none
 [[ -s /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
 # sudo [dnf apt pacman -S] bash-completion
 
-if [ -f /usr/share/bash-completion/completions/git ]; then
-    source /usr/share/bash-completion/completions/git
+if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
+    source /usr/share/git-core/contrib/completion/git-prompt.sh
 fi
 export GIT_PS1_SHOWDIRTYSTATE=1
 
 # 256-color PS1
-HOST_COLOR="\[\033[38;5;160m\]"   # red
+HOST_COLOR="\[\033[38;5;31m\]"   # red
 GIT_COLOR="\[\033[38;5;252m\]"    # light gray
 RESET_COLOR="\[\033[0m\]"
 
