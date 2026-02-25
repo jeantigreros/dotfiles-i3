@@ -1,26 +1,66 @@
-mkdir -p ~/.config/backup/
-cp -r ~/.config/tmux/ ~/.config/backup/
-cp -r ~/.config/fish/ ~/.config/backup/
-cp -r ~/.config/i3/ ~/.config/backup/
-cp -r ~/.config/i3status/ ~/.config/backup/
-cp -r ~/.config/kitty/ ~/.config/backup/
-cp -r ~/.config/nvim/ ~/.config/backup/
-cp -r ~/.config/rofi/ ~/.config/backup/
+#!/usr/bin/env bash
+set -euo pipefail
 
-rm -rf ~/.config/tmux/
-rm -rf ~/.config/fish/
-rm -rf ~/.config/i3/
-rm -rf ~/.config/i3status
-rm -rf ~/.config/kitty/
-rm -rf ~/.config/nvim/
-rm -rf ~/.config/rofi
+CONFIGS=(
+  tmux
+  fish
+  i3
+  i3status
+  kitty
+  nvim
+  rofi
+)
 
-ln -srv tmux/ ~/.config/
-ln -srv fish/ ~/.config/
-ln -srv i3/ ~/.config/
-ln -srv i3status/ ~/.config/
-ln -srv kitty/ ~/.config/
-ln -srv nvim/ ~/.config/
-ln -srv rofi/ ~/.config/
+HOME_FILES=(
+  bashrc
+  fzf.bash
+)
 
+CONFIG_DIR="$HOME/.config"
+BACKUP_DIR="$CONFIG_DIR/backup-$(date +%Y%m%d-%H%M%S)"
+
+echo "Creating backup directory at: $BACKUP_DIR"
+mkdir -p "$BACKUP_DIR"
+
+echo "Backing up existing ~/.config directories..."
+for cfg in "${CONFIGS[@]}"; do
+  TARGET="$CONFIG_DIR/$cfg"
+  if [ -d "$TARGET" ] || [ -L "$TARGET" ]; then
+    echo "  → $cfg"
+    mv "$TARGET" "$BACKUP_DIR/"
+  fi
+done
+
+echo "Linking ~/.config directories..."
+for cfg in "${CONFIGS[@]}"; do
+  if [ -d "$cfg" ]; then
+    ln -snfv "$(pwd)/$cfg" "$CONFIG_DIR/"
+  else
+    echo "Warning: $cfg directory not found, skipping."
+  fi
+done
+
+echo "Installed all config directories"
+echo "Installing home configs..."
+
+echo "Backing up home dotfiles..."
+for file in "${HOME_FILES[@]}"; do
+  TARGET="$HOME/.${file}"
+  if [ -f "$TARGET" ] || [ -L "$TARGET" ]; then
+    echo "  → .$file"
+    mv "$TARGET" "$BACKUP_DIR/"
+  fi
+done
+
+echo "Linking home dotfiles..."
+for file in "${HOME_FILES[@]}"; do
+  if [ -f "$file" ]; then
+    ln -snfv "$(pwd)/$file" "$HOME/.${file}"
+  else
+    echo "Warning: $file not found in repo, skipping."
+  fi
+done
+
+echo "Install complete."
+echo "Backup stored in: $BACKUP_DIR"
 
