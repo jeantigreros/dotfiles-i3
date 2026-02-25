@@ -10,9 +10,6 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
 fi
 export PATH
 
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
-
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
     for rc in ~/.bashrc.d/*; do
@@ -26,6 +23,7 @@ unset rc
 if [[ -f ~/.fzf.bash ]]; then
     source ~/.fzf.bash
 fi
+
 shopt -s cmdhist
 shopt -s histappend
 # Set history size
@@ -42,13 +40,17 @@ set bell-style none
 [[ -s /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
 # sudo [dnf apt pacman -S] bash-completion
 
-RED="\[\033[0;31m\]"
-GREEN="\[\033[0;32m\]"
-BLUE="\[\033[0;34m\]"
-YELLOW="\[\033[0;33m\]"
-RESET="\[\033[0m\]"
+if [ -f /usr/share/bash-completion/completions/git ]; then
+    source /usr/share/bash-completion/completions/git
+fi
+export GIT_PS1_SHOWDIRTYSTATE=1
 
-export PS1="j@${BLUE}fedora${RESET}:\w${RESET}\$ "
+# 256-color PS1
+HOST_COLOR="\[\033[38;5;160m\]"   # red
+GIT_COLOR="\[\033[38;5;252m\]"    # light gray
+RESET_COLOR="\[\033[0m\]"
+
+PS1="${RESET_COLOR}\u${RESET_COLOR}@${HOST_COLOR}\h${RESET_COLOR}${RESET_COLOR}\w${RESET_COLOR}\$(__git_ps1 \" ${GIT_COLOR}(%s)${RESET_COLOR}\")\$ "
 
 doom() {
   ~/.config/emacs/bin/doom "$@"
