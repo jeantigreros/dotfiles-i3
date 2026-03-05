@@ -27,7 +27,7 @@ fi
 shopt -s cmdhist
 shopt -s histappend
 # Set history size
-HISTSIZE=5000
+HISTSIZE=100000
 HISTFILESIZE=10000
 HISTCONTROL=ignoredups:erasedups
 
@@ -112,3 +112,4 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
 export PATH=$JAVA_HOME/bin:$PATH
+export MOZ_ENABLE_WAYLAND=1
