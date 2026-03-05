@@ -128,3 +128,6 @@ vim.keymap.set('n', "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {desc = "Open
 -- bufferline
 vim.opt.termguicolors = true
 require("bufferline").setup{}
+
+-- toggle checkbox
+vim.keymap.set("n", "<leader>tt", ":lua require('toggle-checkbox').toggle()<CR>")
