@@ -8,6 +8,7 @@ CONFIGS=(
   i3status
   kitty
   nvim
+  mpv
   foot
   rofi
 )
