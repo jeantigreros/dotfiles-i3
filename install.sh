@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_DIR="$HOME/.config"
+TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
+BACKUP_DIR="$CONFIG_DIR/backup-$TIMESTAMP"
+
 CONFIGS=(
   tmux
   fish
@@ -18,51 +23,65 @@ HOME_FILES=(
   fzf.bash
 )
 
-CONFIG_DIR="$HOME/.config"
-BACKUP_DIR="$CONFIG_DIR/backup-$(date +%Y%m%d-%H%M%S)"
+backup=false
 
-echo "Creating backup directory at: $BACKUP_DIR"
-mkdir -p "$BACKUP_DIR"
+echo "First time installing this dotfiles?"
+read -r -p "[y/N] " response
+response=${response,,}
 
-echo "Backing up existing ~/.config directories..."
-for cfg in "${CONFIGS[@]}"; do
-  TARGET="$CONFIG_DIR/$cfg"
-  if [ -d "$TARGET" ] || [ -L "$TARGET" ]; then
-    echo "  → $cfg"
-    mv "$TARGET" "$BACKUP_DIR/"
+if [[ "$response" =~ ^(y|yes)$ ]]; then
+  backup=true
+  mkdir -p "$BACKUP_DIR"
+  echo "Backup directory created: $BACKUP_DIR"
+fi
+
+link_file () {
+  src="$1"
+  dest="$2"
+
+  if [[ -e "$dest" || -L "$dest" ]]; then
+    if [[ "$backup" == true ]]; then
+      echo "Backing up $dest"
+      mv "$dest" "$BACKUP_DIR/"
+    fi
   fi
-done
 
-echo "Linking ~/.config directories..."
+  echo "Linking $dest → $src"
+  ln -snfvT "$src" "$dest"
+}
+
+echo
+echo "Linking config directories..."
+
 for cfg in "${CONFIGS[@]}"; do
-  if [ -d "$cfg" ]; then
-    ln -snfv "$(pwd)/$cfg" "$CONFIG_DIR/"
+  src="$DOTFILES_DIR/$cfg"
+  dest="$CONFIG_DIR/$cfg"
+
+  if [[ -d "$src" ]]; then
+    mkdir -p "$CONFIG_DIR"
+    link_file "$src" "$dest"
   else
-    echo "Warning: $cfg directory not found, skipping."
+    echo "Skipping missing config: $cfg"
   fi
 done
 
-echo "Installed all config directories"
-echo "Installing home configs..."
-
-echo "Backing up home dotfiles..."
-for file in "${HOME_FILES[@]}"; do
-  TARGET="$HOME/.${file}"
-  if [ -f "$TARGET" ] || [ -L "$TARGET" ]; then
-    echo "  → .$file"
-    mv "$TARGET" "$BACKUP_DIR/"
-  fi
-done
-
+echo
 echo "Linking home dotfiles..."
+
 for file in "${HOME_FILES[@]}"; do
-  if [ -f "$file" ]; then
-    ln -snfv "$(pwd)/$file" "$HOME/.${file}"
+  src="$DOTFILES_DIR/$file"
+  dest="$HOME/.${file}"
+
+  if [[ -f "$src" ]]; then
+    link_file "$src" "$dest"
   else
-    echo "Warning: $file not found in repo, skipping."
+    echo "Skipping missing file: $file"
   fi
 done
 
-echo "Install complete."
-echo "Backup stored in: $BACKUP_DIR"
+echo
+echo "Dotfiles installation complete."
 
+if [[ "$backup" == true ]]; then
+  echo "Backup saved at: $BACKUP_DIR"
+fi
