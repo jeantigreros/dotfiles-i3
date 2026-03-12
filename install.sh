@@ -18,9 +18,10 @@ CONFIGS=(
   rofi
 )
 
-HOME_FILES=(
+HOME_ITEMS=(
   bashrc
   fzf.bash
+  typst
 )
 
 backup=false
@@ -68,11 +69,11 @@ done
 echo
 echo "Linking home dotfiles..."
 
-for file in "${HOME_FILES[@]}"; do
+for file in "${HOME_ITEMS[@]}"; do
   src="$DOTFILES_DIR/$file"
   dest="$HOME/.${file}"
 
-  if [[ -f "$src" ]]; then
+  if [[ -e "$src" ]]; then
     link_file "$src" "$dest"
   else
     echo "Skipping missing file: $file"
