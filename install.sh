@@ -21,7 +21,6 @@ CONFIGS=(
 HOME_ITEMS=(
   bashrc
   fzf.bash
-  typst
 )
 
 backup=false
@@ -79,6 +78,21 @@ for file in "${HOME_ITEMS[@]}"; do
     echo "Skipping missing file: $file"
   fi
 done
+
+echo "Want to install typst templates?"
+read -r -p "[y/N] " res
+res=${res,,}
+
+if [[ "$res" =~ ^(y|yes)$ ]]; then
+  TYPST_LOCAL_DIR="$HOME/.local/share/typst/packages/local"
+  SRC_TYPST_DIR="$DOTFILES_DIR/typst"
+
+  mkdir -p "$(dirname "$TYPST_LOCAL_DIR")"
+
+  echo "Linking Typst local packages..."
+  link_file "$SRC_TYPST_DIR" "$TYPST_LOCAL_DIR"
+fi
+
 
 echo
 echo "Dotfiles installation complete."
