@@ -11,6 +11,7 @@
     #it
   ]
 
+  show table.cell.where(y: 0): strong
   place(
     top + center,
     float: true,
