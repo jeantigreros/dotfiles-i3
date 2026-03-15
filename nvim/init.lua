@@ -36,7 +36,7 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.linebreak = true
-vim.opt.spelllang = { "es_co", "es", "en" }
+vim.opt.spelllang = {'en_us', 'es_es'}
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {"html", "markdown","text","tex","typst"},
