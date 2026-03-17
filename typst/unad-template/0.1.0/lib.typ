@@ -11,6 +11,13 @@
     #it
   ]
 
+  show raw.where(block: true): block.with(
+    fill: luma(240),
+    inset: 1em,
+    radius: 0.5em,
+    width: 100%,
+  )
+
   show table.cell.where(y: 0): strong
   place(
     top + center,
