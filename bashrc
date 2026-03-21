@@ -52,6 +52,8 @@ RESET_COLOR="\[\033[0m\]"
 
 PS1="${RESET_COLOR}\u${RESET_COLOR}@${HOST_COLOR}\h${RESET_COLOR}${RESET_COLOR}\w${RESET_COLOR}\$(__git_ps1 \" ${GIT_COLOR}(%s)${RESET_COLOR}\")\$ "
 
+alias tmuxd='tmux detach-client'
+
 doom() {
   ~/.config/emacs/bin/doom "$@"
 }

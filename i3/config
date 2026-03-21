@@ -16,7 +16,7 @@ set $alt Mod1
 # is used in the bar {} block below.
 font pango:monospace 8
 
-exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
+# exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -180,6 +180,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+# suspend
+bindsym $mod+Pause exec systemctl suspend
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
