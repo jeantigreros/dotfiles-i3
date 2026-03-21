@@ -46,13 +46,11 @@ fi
 export GIT_PS1_SHOWDIRTYSTATE=1
 
 # 256-color PS1
-HOST_COLOR="\[\033[38;5;31m\]"   # blue
+HOST_COLOR="\[\033[02;36;31m\]"   # blue
 GIT_COLOR="\[\033[38;5;252m\]"    # light gray
 RESET_COLOR="\[\033[0m\]"
 
 PS1="${RESET_COLOR}\u${RESET_COLOR}@${HOST_COLOR}\h${RESET_COLOR}${RESET_COLOR}\w${RESET_COLOR}\$(__git_ps1 \" ${GIT_COLOR}(%s)${RESET_COLOR}\")\$ "
-
-alias tmuxd='tmux detach-client'
 
 doom() {
   ~/.config/emacs/bin/doom "$@"
