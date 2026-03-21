@@ -8,3 +8,7 @@ fi
 # User specific environment and startup programs
 # qutebrowser bibtex download path
 export QUTE_BIB_FILEPATH="/home/j/org/unad/refs"
+
+# darkmode default
+export GTK_THEME=Adwaita:dark
+export QT_QPA_PLATFORMTHEME=qt5ct

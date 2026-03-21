@@ -26,8 +26,6 @@ config.bind('<Escape>', 'mode-leave ;; jseval -q document.activeElement.blur()',
 # config.bind('<Ctrl-c>', 'mode-leave ;; jseval -q document.activeElement.blur()', mode='insert')
 config.bind('=', 'cmd-set-text -s :open -t')
 config.bind('t', 'open -t')
-config.bind('<Ctrl-h>', 'tab-prev')
-config.bind('<Ctrl-l>', 'tab-next')
 c.confirm_quit = ['always']
 # config.bind('o', 'set-cmd-text :open')
 # config.bind('pc', 'set-cmd-text --append {clipboard}')

@@ -46,7 +46,7 @@ fi
 export GIT_PS1_SHOWDIRTYSTATE=1
 
 # 256-color PS1
-HOST_COLOR="\[\033[02;36;31m\]"   # blue
+HOST_COLOR="\[\033[02;36;31m\]"   # red
 GIT_COLOR="\[\033[38;5;252m\]"    # light gray
 RESET_COLOR="\[\033[0m\]"
 
