@@ -15,11 +15,13 @@ CONFIGS=(
   nvim
   mpv
   foot
+  qutebrowser
   rofi
 )
 
 HOME_ITEMS=(
   bashrc
+  bash_profile
   fzf.bash
 )
 
