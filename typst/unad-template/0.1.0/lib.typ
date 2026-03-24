@@ -5,6 +5,7 @@
   set bibliography(style: "apa")
   set par(leading: 1em*1.5)
   set page(margin: 1in)                    // Márgenes APA de 1 pulgada
+  set par(indent: 3em)
   let uni="Universidad Nacional Abierta y A Distancia"
   show heading.where(level: 1): it => [
     #pagebreak()
@@ -24,7 +25,7 @@
     float: true,
     scope: "parent", 
     align(center)[
-      #set text(weight: "bold", size: 14pt)
+      #set text(weight: "bold", size: 12pt)
       #grid(
         columns: (1),
         rows: (7em),
