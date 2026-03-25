@@ -1,0 +1,44 @@
+* {
+    /*font-family: VictorMono, Iosevka Nerd Font, Noto Sans CJK;*/
+    font-family: JetBrains Mono Nerd Font;
+    font-size: 14px;
+    font-style: normal;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(30, 30, 46, 0.5);
+    color: white;
+    /* background: transparent;  */
+}
+
+#tray, #cpu, #memory, #disk, #clock, #custom-power, #workspaces, #custom-date, #battery, #wireplumber,#temperature,  #backlight, #network, #custom-randwall, #custom-launcher {
+	background: transparent;
+  color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#temperature.critical {
+  background-color: red;
+}
+
+#battery {
+  background-color: rgb(51, 195, 75);
+}
+
+#battery.warning {
+background-color: #db5a53;
+}
+
+#battery.critical {
+  background-color: red;
+}
+
+#tray {
+  padding-right: 9px;
+  padding-left: 9px;
+}
+/* "modules-left": ["hyprland/workspaces", "custom/playerctl", "custom/playerlabel"],
+    "modules-center": ["cpu", "memory", "disk"],
+    "modules-right": ["tray","group/temp","wireplumber","battery","clock","custom/power"], */

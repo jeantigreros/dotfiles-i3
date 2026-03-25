@@ -1,0 +1,152 @@
+{
+  "position": "bottom",
+  "layer": "bottom",
+  "height": 24,
+  "margin-top": 0,
+  "margin-bottom": 0,
+  "margin-left": 0,
+  "margin-right": 0,
+  "modules-left": [
+    "sway/workspaces",
+    "custom/playerctl",
+    "custom/playerlabel"
+  ],
+  "modules-right": [
+    "tray",
+    "wireplumber",
+    "cpu",
+    "memory",
+    "disk",
+    "temperature",
+    "battery",
+    "network",
+    "clock",
+    "custom/power"
+  ],
+  // Modules configuration
+  "clock": {
+    "format": "  {:%H:%M} ",
+    "tooltip": "true",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "  {:%d/%m} "
+  },
+
+  "hyprland/workspaces": {
+    "active-only": false,
+    "all-outputs": true,
+    "disable-scroll": false,
+    "on-scroll-up": "hyprctl dispatch workspace -1",
+    "on-scroll-down": "hyprctl dispatch workspace +1",
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "urgent": "",
+      "active": "",
+      "default": "󰧞",
+      "sort-by-number": false
+    }
+  },
+  "custom/playerctl": {
+    "format": "{icon}",
+    "return-type": "json",
+    "max-length": 64,
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click-middle": "playerctl play-pause",
+    "on-click": "playerctl previous",
+    "on-click-right": "playerctl next",
+    "format-icons": {
+      "Playing": "  ",
+      "Paused": "  "
+    }
+  },
+
+  "custom/playerlabel": {
+    "format": "<span>{}</span>",
+    "return-type": "json",
+    "max-length": 48,
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click-middle": "playerctl play-pause",
+    "on-click": "playerctl previous",
+    "on-click-right": "playerctl next",
+    "format-icons": {
+      "Playing": "  ",
+      "Paused": "  "
+    }
+  },
+  "memory": {
+    "format": "  {}%",
+    "format-alt": "  {used}/{total} GiB",
+    "interval": 5
+  },
+
+  "cpu": {
+    "format": " 󰻠 {usage}%",
+    "format-alt": " 󰻠 {avg_frequency} GHz",
+    "interval": 5
+  },
+
+  "disk": {
+    "format": " 󰋊 {free}",
+    "format-alt": " 󰋊 {free}/{total} GiB",
+    "interval": 5,
+    "path": "/home/"
+  },
+
+  "network": {
+    "format-wifi": " 󰤨 ",
+    "format-ethernet": " 󰈀  Wired",
+    "format-linked": " 󰈀 {ifname} (No IP)",
+    "format-disconnected": " 󰈂 ",
+    "format-alt": " 󰤨 {ipaddr}/{cidr}",
+    "tooltip-format": "{essid}",
+    "on-click-right": "nm-connection-editor"
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 5
+  },
+
+  "wireplumber": {
+    "format": " {icon}{volume}% ",
+    "format-muted": " 󰟎 ",
+    "format-icons": {
+      "default": [" 󰋋 "]
+    },
+    "on-click": "pavucontrol",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_SINK@ 5%-",
+    "scroll-step": 5
+  },
+
+  "custom/power": {
+    "format": "{icon}",
+    "format-icons": " ⏻ ",
+    "on-click": "wlogout"
+  },
+
+  "temperature": {
+	 "thermal-zone": 2,
+	"hwmon-path": ["/sys/class/hwmon/hwmon2/temp1_input"],
+	 "critical-threshold": 80,
+	 "format-critical": "{temperatureC}°C ",
+	"format": "{temperatureC}°C "
+},
+
+  "battery": {
+    "bat": "BAT1",
+    "interval": 45,
+    "states": {
+      "warning": 30,
+      "critical": 20
+    },
+    "format": " {icon} {capacity}% ",
+    "format-icons": [" ", " ", " ", " ", " "]
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": " {icon} {percent}%",
+    "format-icons": ["󰃜", "󰃛", "󰃚"]
+  }
+}

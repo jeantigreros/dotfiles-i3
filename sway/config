@@ -1,0 +1,184 @@
+# Sway config equivalent of your i3 config
+# Place this in ~/.config/sway/config
+
+# Modifier keys
+set $mod Mod4
+set $alt Mod1
+
+# Font (for titlebars, notifications, etc.)
+# sway uses Pango as well
+font pango:monospace 8
+
+# Keyboard layout
+input * {
+    xkb_layout us
+    xkb_variant altgr-intl
+    xkb_options caps:escape
+}
+
+# Start XDG autostart apps
+exec_always --no-startup-id dex --autostart --environment sway
+
+# Apps
+bindsym $mod+Shift+f exec firefox
+bindsym $mod+Return exec foot
+# Dolphin is X11-only; use something like nautilus, thunar, or xdg-open
+# bindsym $mod+t exec thunar
+
+# Notifications
+exec_always --no-startup-id dunst
+
+# Screen lock
+exec_always --no-startup-id xss-lock --transfer-sleep-lock -- swaylock -f
+
+# Network manager applet
+exec_always --no-startup-id nm-applet
+
+# Display configuration (replace xrandr with sway's output commands)
+# Example:
+exec_always --no-startup-id swaymsg output DisplayPort-0 mode 1920x1080@180Hz
+
+# Audio controls (PulseAudio)
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Floating modifier
+floating_modifier $mod
+
+# Tiling drag (mouse)
+#tiling_drag modifier titlebar
+
+# Toggle floating
+bindsym $mod+space floating toggle
+
+# Lock / suspend
+bindsym Shift+$mod+Pause exec systemctl suspend
+
+# Kill focused window
+bindsym $mod+q kill
+
+# Application launcher (rofi)
+bindsym $mod+d exec --no-startup-id rofi -show drun 
+
+# Focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move windows
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split orientation
+bindsym $mod+b split h
+bindsym $mod+v split v
+
+# Fullscreen
+bindsym $mod+f fullscreen toggle
+
+# Layouts
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling/floating
+bindsym $mod+Shift+space floating toggle
+
+# Focus parent/child
+bindsym $mod+a focus parent
+
+# Custom script menu
+bindsym $mod+Shift+d exec ~/dev/scripts/scripts-menu.sh
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Reload / restart / exit
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r swaymsg reload
+# Exit confirmation not needed; sway exits immediately
+bindsym $mod+Shift+q exit
+
+# Resize mode
+mode "resize" {
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
+
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Status bar
+exec waybar
+
+# Screenshots
+# exec_always --no-startup-id flameshot
+# bindsym Print exec grimshot savecopy area
+bindsym Print exec sh -c 'name=$(echo "" | rofi -dmenu -p "Screenshot name"); [ -z "$name" ] && name="Screenshot_$(date +%F_%H-%M-%S)"; grimshot save area ~/Pictures/${name}.png'
+
+# Increase brightness
+bindsym XF86MonBrightnessUp exec brightnessctl s +10%
+
+# Decrease brightness
+bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
+
+# Window borders
+for_window [class="^.*"] border pixel 2
+
+# Background
+exec_always feh --bg-scale /home/j/Pictures/wallpaper2.jpeg
