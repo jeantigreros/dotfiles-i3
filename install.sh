@@ -17,6 +17,8 @@ CONFIGS=(
   foot
   qutebrowser
   rofi
+  sway
+  waybar
 )
 
 HOME_ITEMS=(
