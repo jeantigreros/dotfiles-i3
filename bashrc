@@ -100,6 +100,8 @@ openports() {
 }
 
 set completion-query-items 0
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
 
 # pnpm
 export PNPM_HOME="/home/j/.local/share/pnpm"
